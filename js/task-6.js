@@ -1,45 +1,36 @@
-function getRandomHexColor() {
-  return `#${Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, '0')}`;
-}
 
-const controls = document.querySelector('#controls');
-const boxesContainer = document.querySelector('#boxes');
-const input = controls.querySelector('input');
+const input = document.querySelector('input');
+const createBtn = document.querySelector('[data-create]');
+const destroyBtn = document.querySelector('[data-destroy]');
+const boxesContainer = document.getElementById('boxes');
 
-// Event listener for the "Create" and "Destroy" buttons
-controls.addEventListener('click', (event) => {
-  if (event.target.dataset.create) {
-    const amount = input.value;
-    if (amount >= 1 && amount <= 100) {
-      createBoxes(amount);
-      input.value = '';
-    }
-  } else if (event.target.dataset.destroy) {
-    destroyBoxes();
+createBtn.addEventListener('click', createBoxes);
+destroyBtn.addEventListener('click', destroyBoxes);
+
+function createBoxes() {
+  const amount = Number(input.value);
+  if (amount < 1 || amount > 100) {
+    return;
   }
-});
 
-// Event listener for the input field
-input.addEventListener('input', () => {
-  // You can add additional logic here if needed
-});
-
-function createBoxes(amount) {
-  destroyBoxes();
-
+  const fragment = document.createDocumentFragment();
   for (let i = 0; i < amount; i++) {
-    const box = document.createElement('div');
-    box.style.width = `${30 + i * 10}px`;
-    box.style.height = `${30 + i * 10}px`;
-    box.style.backgroundColor = getRandomHexColor();
-    box.style.marginBottom = '5px';
-    box.style.border = '1px solid #000';
-    boxesContainer.appendChild(box);
+    const size = 30 + i * 10;
+    const div = document.createElement('div');
+    div.style.width = `${size}px`;
+    div.style.height = `${size}px`;
+    div.style.backgroundColor = getRandomHexColor();
+    fragment.appendChild(div);
   }
+
+  boxesContainer.appendChild(fragment);
+  input.value = '';
 }
 
 function destroyBoxes() {
   boxesContainer.innerHTML = '';
+}
+
+function getRandomHexColor() {
+  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
 }
