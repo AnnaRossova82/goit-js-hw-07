@@ -47,23 +47,15 @@ images.forEach((image) => {
 gallery.appendChild(fragment);
 
 
-const galleryList = document.querySelectorAll('.gallery li');
+const galleryList = document.querySelector('.gallery');
+galleryList.style.display = 'flex';
+galleryList.style.flexWrap = 'wrap';
+galleryList.style.gap = '10px';
+galleryList.style.listStyle = 'none';
 
+galleryList.querySelectorAll('img').forEach(image => {
+  image.style.width = '360px';
+  image.style.height = '300px';
+  image.style.flexShrink = '0';
 
-galleryList.forEach(item => {
-  item.style.margin = '10px';
 });
-
-const galleryImages = document.querySelectorAll('.gallery img');
-
-galleryImages.forEach(image => {
-  image.style.maxWidth = '100%';
-  image.style.height = 'auto';
-});
-
-
-gallery.style.display = 'flex';
-gallery.style.flexWrap = 'wrap';
-gallery.style.listStyle = 'none';
-gallery.style.padding = '0';
-gallery.style.margin = '0';
