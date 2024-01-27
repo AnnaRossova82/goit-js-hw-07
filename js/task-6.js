@@ -13,6 +13,8 @@ function createBoxes() {
     return;
   }
 
+  destroyBoxes();
+
   const fragment = document.createDocumentFragment();
   for (let i = 0; i < amount; i++) {
     const size = 30 + i * 10;
